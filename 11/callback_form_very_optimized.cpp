@@ -3,12 +3,14 @@
 #include <vector>
 #include <sstream>
 #include <charconv>
-bool even_digits(int64_t i) {
+bool even_digits(int64_t i, int64_t& divisor) {
+  divisor = 10;
   if (i < 100) {
     return i >= 10;
   }
   while (i >= 100) {
     i = i / 100;
+    divisor *= 10;
   }
   return i >= 10;
 }
@@ -19,23 +21,22 @@ int64_t string_view_stoi(std::string_view sv) {
   return i;
 }
 // Helper function to split a string
-std::pair<int64_t, int64_t> splitNumber(int64_t stone) {
-    std::string z = std::to_string(stone);
-    int64_t k = z.size() / 2;
-    int64_t left = string_view_stoi(std::string_view(z).substr(0, k));
-    int64_t right = string_view_stoi(std::string_view(z).substr(k));
+std::pair<int64_t, int64_t> splitNumber(int64_t stone, int64_t divisor) {
+    int64_t left = stone / divisor;
+    int64_t right = stone % divisor;
     return {left, right};
 }
 
 // Coroutine generator for stone_generator
 template <typename F>
 void StoneGenerator(int64_t stone, int64_t step, F f) {
+    int64_t divisor;
     if (step == 0) {
         f(stone);
     } else if (stone == 0) {
         StoneGenerator(1, step - 1, f);
-    } else if (even_digits(stone)) {
-        auto [left, right] = splitNumber(stone);
+    } else if (even_digits(stone, divisor)) {
+        auto [left, right] = splitNumber(stone, divisor);
         StoneGenerator(left, step - 1, f);
         StoneGenerator(right, step - 1, f);
     } else {
