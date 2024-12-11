@@ -15,11 +15,6 @@ bool even_digits(int64_t i, int64_t& divisor) {
   return i >= 10;
 }
 
-int64_t string_view_stoi(std::string_view sv) {
-  int64_t i;
-  std::from_chars(sv.data(), sv.data() + sv.size(), i);
-  return i;
-}
 // Helper function to split a string
 std::pair<int64_t, int64_t> splitNumber(int64_t stone, int64_t divisor) {
     int64_t left = stone / divisor;
