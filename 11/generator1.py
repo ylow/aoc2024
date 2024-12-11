@@ -1,4 +1,4 @@
-a = [int(i) for i in open('insmall.txt').read().strip().split()]
+a = [int(i) for i in open('in.txt').read().strip().split()]
 
 
 def stone_generator(stone, step):
@@ -20,7 +20,7 @@ def generate_all(stonelist, step):
         yield from stone_generator(i, step)
 
 
-nsteps = 25
+nsteps = 30
 ctr = 0
 for i in generate_all(a, nsteps):
     ctr += 1

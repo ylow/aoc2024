@@ -52,12 +52,15 @@ class Program
     static void Main(string[] args)
     {
         var stoneList = new List<long> { 64599,31,674832,2659361,1,0,8867,321 };
-        long nsteps = 25;
+        long nsteps = 30;
         long ctr = 0;
 
         foreach (var _ in GenerateAll(stoneList, nsteps))
         {
             ctr++;
+            if (ctr % 1000000000 == 0) {
+              Console.WriteLine(ctr);
+            }
         }
 
         Console.WriteLine(ctr);
