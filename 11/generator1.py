@@ -1,4 +1,4 @@
-a = [int(i) for i in open('in.txt').read().strip().split()]
+a = [int(i) for i in open('insmall.txt').read().strip().split()]
 
 
 def stone_generator(stone, step):
